@@ -48,3 +48,12 @@ let searchSubmitHandler = function(event) {
         alert("Please enter a city name");
     }
 };
+
+// Function to display info
+let displayWeather = function(weatherData) {
+
+    // Format
+    $("#main-city-name").text(weatherData.name + " (" + dayjs(weatherData.dt * 1000).format("MM/DD/YYYY") + ") ").append(`<img src="https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png"></img>`);
+    $("#main-city-temp").text("Temperature: " + weatherData.main.temp.toFixed(1) + "°F");
+    $("#main-city-humid").text("Humidity: " + weatherData.main.humidity + "%");
+    $("#main-city-wind").text("Wind Speed: " + weatherData.wind.speed.toFixed(1) + " mph");
