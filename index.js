@@ -27,3 +27,24 @@ let getCityWeather = function(city) {
             alert("There was an error connecting to OpenWeather");
         })
 };
+
+// Function for City Serach and Form Submission
+let searchSubmitHandler = function(event) {
+   
+    event.preventDefault();
+
+    // Value from Input 
+    let cityName = $("#cityname").val().trim();
+
+    // Sees if Search Value is Present
+    if(cityName) {
+        // Pushes Value to getCityWeather Function
+        getCityWeather(cityName);
+
+        // Delete Serach Input
+        $("#cityname").val("");
+    } else {
+        
+        alert("Please enter a city name");
+    }
+};
