@@ -117,3 +117,61 @@ fetch("https://api.openweathermap.org/data/2.5/forecast?q=" + weatherData.name +
     
 };
 
+// City Search History Into Local Storage
+let saveSearchHistory = function (city) {
+    if(!searchHistory.includes(city)){
+        searchHistory.push(city);
+        $("#search-history").append("<a href='#' class='list-group-item list-group-item-action' id='" + city + "'>" + city + "</a>")
+    } 
+
+    // Save Array to Local Storage
+    localStorage.setItem("weatherSearchHistory", JSON.stringify(searchHistory));
+
+    // Save Last City To Local Storage
+    localStorage.setItem("lastCitySearched", JSON.stringify(lastCitySearched));
+
+    // Display Serach History Array
+    loadSearchHistory();
+};
+
+// Function to Loads Searched History from Local Storage
+let loadSearchHistory = function() {
+    searchHistory = JSON.parse(localStorage.getItem("weatherSearchHistory"));
+    lastCitySearched = JSON.parse(localStorage.getItem("lastCitySearched"));
+  
+    //  Creates Empty Search History Array + Empty Searched City IF Nothing in Array
+    if (!searchHistory) {
+        searchHistory = []
+    }
+
+    if (!lastCitySearched) {
+        lastCitySearched = ""
+    }
+
+    // Deletes Previous Values From Search History
+    $("#search-history").empty();
+
+    //  Loops through All Cities In Array
+    for(i = 0 ; i < searchHistory.length ;i++) {
+
+        //  Append To the Search History + Link
+        $("#search-history").append("<a href='#' class='list-group-item list-group-item-action' id='" + searchHistory[i] + "'>" + searchHistory[i] + "</a>");
+    }
+  };
+
+
+loadSearchHistory();
+
+// Shows Last City Searched
+if (lastCitySearched != ""){
+    getCityWeather(lastCitySearched);
+}
+
+
+$("#search-form").submit(searchSubmitHandler);
+$("#search-history").on("click", function(event){
+  
+    let prevCity = $(event.target).closest("a").attr("id");
+    
+    getCityWeather(prevCity);
+});
