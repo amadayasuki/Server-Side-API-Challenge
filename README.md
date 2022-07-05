@@ -30,3 +30,4 @@ https://github.com/amadayasuki/Server-Side-API-Challenge
 -Ajax
 
 ## Screenshot
+![Screenshot] (https://raw.githubusercontent.com/amadayasuki/Server-Side-API-Challenge/main/MockUp.png)
